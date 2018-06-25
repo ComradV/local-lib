@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1 ID: #{copy.id}
+  p
+    b Title:
+    a(href=copy.book.url) #{copy.book.title}
+  p
+    b Imprint:
+    |  #{copy.imprint}
+  p
+    b Status:
+    |  
+    if copy.status=='Available'
+      span.text-success #{copy.status}
+    else if copy.status=='Maintenance'
+      span(class="text-danger") #{copy.status}
+    else
+      span.text-warning #{copy.status}
+  if copy.status!='Available'
+    b Due back:
+    |  #{copy.due_back_formatted}
+  hr
+  .btn-group
+    a(href=copy.url+'/update').btn.btn-primary Update
+    a(href=copy.url+'/delete').btn.btn-danger Delete this copy

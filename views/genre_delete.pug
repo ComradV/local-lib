@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1 #{title}:#{genre.name}
+  
+  div(style='margin-left:20px;margin-top:20px')
+  
+    if genre_books.length
+      h4 Cannot delete genre, because there are books of this genre:
+
+      for book in genre_books
+        +book-description(book)  
+    else
+      form(method='POST' action='')
+        div.form-group
+          input#genreid.form-control(type='hidden',name='genreid', required='true', value=genre.id )
+        button.btn.btn-danger(type='submit') Delete
+
+mixin book-description(book)
+  p
+    a(href=book.url) #{book.title}
+  p #{book.summary}

@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1 #{title}: #{copy.id}
+  p
+    b Title:
+    a(href=copy.book.url) #{copy.book.title}
+  p
+    b Imprint:
+    |  #{copy.imprint}
+  p
+    b Status:
+    |  
+    if copy.status=='Available'
+      span.text-success #{copy.status}
+    else if copy.status=='Maintenance'
+      span(class="text-danger") #{copy.status}
+    else
+      span.text-warning #{copy.status}
+  if copy.status!='Available'
+    b Due back:
+    |  #{copy.due_back_formatted}
+  hr
+  form(method='POST' action='')
+    div.form-group
+      input#copyid.form-control(type='hidden',name='copyid', required='true', value=copy.id )
+    button.btn.btn-danger(type='submit') Delete

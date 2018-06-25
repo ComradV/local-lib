@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1 Title: #{book.title}
+  p
+    b Author:
+    a(href=book.author.url) #{book.author.name}
+  p
+    b Summary:
+    | #{book.summary}
+  p
+    b ISBN:
+    | #{book.isbn}
+  p
+    b Genre:
+    each genre in book.genre
+      a(href=genre.url) #{genre.name},
+    else
+      Genres not specifies
+  div(style="margin-top:20px; margin-left:20px")
+    h4 Copies
+    each copy in bookinstances
+      hr
+      p
+      if copy.status=='Available'
+        span.text-success #{copy.status}
+      else if copy.status=='Maintenance'
+        span(class="text-danger") #{copy.status}
+      else
+        span.text-warning #{copy.status} 
+      p
+        b Imprint:
+        |#{copy.imprint}
+      if copy.status!='Available'
+        b Due back:
+        | #{copy.due_back_formatted}
+      p
+        b Id:
+        a(href=copy.url) #{copy.id}
+    else	  
+      There are no copies of this book
+  hr
+  .btn-group
+    a(href=book.url+'/update').btn.btn-primary Update book
+    a(href=book.url+'/delete').btn.btn-danger Delete book

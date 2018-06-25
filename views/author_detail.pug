@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 Author: #{author.name}
+  p #{author.lifespan}
+  div(style="margin-top:20px; margin-left:20px")
+    h4 Books
+    each book in books
+      p
+        a(href=book.url) #{book.title}
+      p #{book.summary}
+    else	  
+      There are no books in database yet
+  hr
+  .btn-group
+    a(href=author.url+'/update').btn.btn-primary Update author
+    a(href=author.url+'/delete').btn.btn-danger Delete author	
